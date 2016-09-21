@@ -25,8 +25,8 @@ Dipy also allows users to define their own direction getter class, either in pyt
 \item The \verb|initial_direction| method takes one argument, \verb|point| similar to \verb|get_direction|.
 \item The \verb|initial_direction| method should return an \verb|(N, 3)| array of directions as unit vectors.
 \begin{enumerate}
+\item These directions should be suitable tracking directions for tracking from seeds at \verb|point|.
 \item Because of the antipodal symmetry in diffusion imaging, the directions \verb|x| and \verb|-x| are considered the same. Only one of the directions associated with each pair should be included.
-\item These directions should be suitable tracking directions for tracking seeds at \verb|point|.
 \item If some directions are more suitable for tracking, the directions should be sorted in order of suitability. The most preferred direction first.  
 \item If no suitable directions can be established, a \verb|(0, 3)| array should be returned.
 \end{enumerate}
