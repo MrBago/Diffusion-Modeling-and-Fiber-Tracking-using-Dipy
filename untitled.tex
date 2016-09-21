@@ -18,9 +18,10 @@
 \item The \verb|get_direction| method takes two arguments, \verb|point| and \verb|direction|.
 \begin{enumerate}
 \item Both arguments are of type \verb|memoryview| and have shape \verb|(3,)|.
-\item \verb|point| is the current streamline possition in voxel coordinates.
+\item \verb|point| is the current streamline possition in voxel coordinates, and guaranteed to be inside the image.
 \item \verb|direction| is the direction of the previous tracking step, given as a unit vector.
 \end{enumerate}
-\item \verb|get_direction| should update \verb|direction| with the next tracking direction.
+\item \verb|get_direction| should return \verb|1| if no tracking direction can be established and \verb|0| otherwise.
+\item \verb|get_direction| should update \verb|direction| with the next tracking direction if \verb|0| is returned.
 \end{enumerate}
 \end{enumerate}
