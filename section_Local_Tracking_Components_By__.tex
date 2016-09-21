@@ -2,7 +2,9 @@
     By framing the local tracing problem as one of independent but interacting modules, we're able to focus on the behaviour of the independent components. In this section we discuss how the components of the local tracking model are built, the responsibilities of each component and how the components interact.
 
 \subsection{Direction Getter}
-    As the name suggests, it is the responsibility of the direction getter to pick tracking directions based on the tissue information at the current tacking location. At each step of the tracking procedure, there are two pieces of information available to the direction getter. First, the current tracking location is the last point, so far, of the streamline being tracked relative to the diffusion MRI images. The point is given in "continues voxel coordinates", meaning that the point 
+    As the name suggests, it is the responsibility of the direction getter to pick tracking directions based on the tissue information at the current tacking location. The first the current tracking location is the last point, so far, of the streamline being tracked given relative to the diffusion MRI images. The second piece of available information is the direction of previous streamline segment. This second piece of information is important because it allows crossings, and other complex architectures, to be modeled by the tracking algorithm. When multiple plausible tracking directions are available, the best directions can be chosen contingent on the direction of the previous segment. The direction getter must also be able to provide initial directions for tracking from seed points. Because seed points are used to initialize the tracking procedure, there is no previous segment from which to extract a direction. A direction getter can provide multiple initial directions for a given seed point, for example if the seed point is in a WM structure where axons from different tracts cross. The tracking framework is then responsible for either picking the best of the initial directions or tracking multiple directions and returning a streamline for each of the directions.
+    
+    Dipy provides several standard direction getters. The function \verb|dipy.direction.peaks_from_model| returns a deterministic direction getter which estimates tracking directions from ODF or FOD peaks. Both q-ball type, which typically estimate ODFs, and spherical deconvolution type, which typically estimate FODs, can be used with this direction getter. 
     
 \begin{enumerate}
 \item A direction getter should inherit from \verb|dipy.tracking.local.DirectionGetter|.
@@ -11,7 +13,7 @@
 \item The \verb|get_direction| method takes two arguments, \verb|point| and \verb|direction|.
 \begin{enumerate}
 \item Both arguments are of type \verb|memoryview| with shape \verb|(3,)| and format \verb|'d'|.
-\item \verb|point| is the current streamline possition in voxel coordinates, and guaranteed to be inside the image.
+\item \verb|point| is the current streamline position in voxel coordinates, and guaranteed to be inside the image.
 \item \verb|direction| is the direction of the previous tracking step, given as a unit vector.
 \end{enumerate}
 \item \verb|get_direction| should return \verb|1| if no tracking direction can be established and \verb|0| otherwise.
