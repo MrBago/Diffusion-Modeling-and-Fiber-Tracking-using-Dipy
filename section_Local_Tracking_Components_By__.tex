@@ -2,7 +2,7 @@
     By framing the local tracing problem as one of independent but interacting modules, we're able to focus on the behaviour of the independent components. In this section we discuss how the components of the local tracking model are built, the responsibilities of each component and how the components interact.
 
 \subsection{Direction Getter}
-    As the name suggests, it is the responsibility of the direction getter to pick tracking directions based on the tissue information at the current tacking location. At each step of the tracking procedure, there are two pieces of information available to the direction getter. First, the current tracking location is the last point, so far, of the streamline being tracked relative to the 
+    As the name suggests, it is the responsibility of the direction getter to pick tracking directions based on the tissue information at the current tacking location. At each step of the tracking procedure, there are two pieces of information available to the direction getter. First, the current tracking location is the last point, so far, of the streamline being tracked relative to the diffusion MRI images. The point is given in "continues voxel coordinates", meaning that the point 
     
 \begin{enumerate}
 \item A direction getter should inherit from \verb|dipy.tracking.local.DirectionGetter|.
@@ -10,7 +10,7 @@
 \begin{enumerate}
 \item The \verb|get_direction| method takes two arguments, \verb|point| and \verb|direction|.
 \begin{enumerate}
-\item Both arguments are of type \verb|memoryview| and have shape \verb|(3,)|.
+\item Both arguments are of type \verb|memoryview| with shape \verb|(3,)| and format \verb|'d'|.
 \item \verb|point| is the current streamline possition in voxel coordinates, and guaranteed to be inside the image.
 \item \verb|direction| is the direction of the previous tracking step, given as a unit vector.
 \end{enumerate}
