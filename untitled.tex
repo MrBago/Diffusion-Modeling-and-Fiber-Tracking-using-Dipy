@@ -1,8 +1,20 @@
 \section{Introduction}
-    Fiber tracking, or tractography, is a developing set of techniques for identifying and measuring the properties of white matter (WM) pathways in mammalian brains. By measuring the restricted Brownian motion of water molecules in brain tissues, diffusion MRI gives us a way to examine the microstructural properties of those tissues. Diffusion models such as diffusion tensor imaging (DTI) or constrained spherical deconvolution (CSD) can be applied to diffusion MRI data sets to estimate tissue properties from diffusion weighted images. Fiber tracking allows us to take this analysis to the next level and begin to estimate the properties of individual WM tracts or the collections of tracts that make up the structural network of the brain.
+    Fiber tracking, or tractography, is a developing set of techniques for identifying and measuring the properties of white matter (WM) pathways in mammalian brains. By measuring the restricted Brownian motion of water molecules in brain tissues, diffusion MRI gives us a way to examine the microstructural properties of those tissues. Diffusion models such as diffusion tensor imaging (DTI) or constrained spherical deconvolution (CSD) can be applied to diffusion MRI data sets to estimate tissue properties from diffusion weighted images. These tissue properties allow us to see into the microstructure of the axons that make up white matter tissues. These axons, and their surrounding myelin, restrict water diffusion therefor diffusion weighted MRI is sensitive to their diameter, density, integrity, and directionality. Fiber tracking allows us to take this analysis to the next level and begin to estimate the properties of individual WM tracts or the collections of tracts that make up the structural network of the brain.
     
-    The structural network of the brain, or the structural connectivity of the brain, plays an important, but poorly understood, roll in aging and neurological disease.  
+    The structural network of the brain, or the structural connectivity of the brain, plays an important, but poorly understood, roll in aging and neurological disease. Structural network changes have been identified 
 
-\textit{Oh, an empty article!}
+# An overview of local tracking algorithms.
 
-You can get started by \textbf{double clicking} this text block and begin editing. You can also click the \textbf{Text} button below to add new block elements. Or you can \textbf{drag and drop an image} right onto this text. Happy writing!
+\section{Local Tracking Components}
+    By framing the local tracing problem as one of independent but interacting modules, we're able to focus on the behaviour of the independent components. In this section we discuss how the components of the local tracking model are built, the responsibilities of each component and how the components interact.
+
+\subsection{Direction Getter}
+    As the name suggests, it is the responsibility of the direction getter to pick tracking directions based on the tissue information at the current tacking location. At each step of the tracking procedure, there are two pieces of information available to the direction getter. First, the current tracking location is the last point, so far, of the streamline being tracked relative to the 
+    
+\begin{enumerate}
+\item A direction getter should inherit from \verb|dipy.tracking.local.DirectionGetter|.\begin{enumerate}
+\item A direction getter should implement a \verb|get_direction| method.\begin{enumerate}
+\begin{enumerate}
+
+\end{enumerate}
+\end{enumerate}
