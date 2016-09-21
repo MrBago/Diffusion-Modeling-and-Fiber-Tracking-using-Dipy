@@ -13,6 +13,9 @@
 \item \verb|point| is of type \verb|memoryview| with shape \verb|(3,)| and format \verb|'d'|.
 \item \verb|point| is the current streamline position in voxel coordinates, and guaranteed to be inside the image.
 \end{enumerate}
-\item The \verb|check_point| method should return a \verb|TissueClass|
+\item The \verb|check_point| method should return a \verb|TissueClass|.
+\begin{enumerate}
+\item Currently the four valid tissue classes are:  \verb|TRACKPOINT|, \verb|ENDPOINT|, \verb|INVALIDPOINT|, and \verb|OUTSIDEIMAGE|.
+\end{enumerate}
 \end{enumerate}
 \end{enumerate}
