@@ -15,6 +15,12 @@
 \item A direction getter should inherit from \verb|dipy.tracking.local.DirectionGetter|.\begin{enumerate}
 \item A direction getter should implement a \verb|get_direction| method.\begin{enumerate}
 \begin{enumerate}
-
+\item The \verb|get_direction| method takes two arguments, \verb|point| and \verb|direction|.
+\begin{enumerate}
+\item Both arguments are of type \verb|memoryview| and have shape \verb|(3,)|.
+\item \verb|point| is the current streamline possition in voxel coordinates.
+\item \verb|direction| is the direction of the previous tracking step, given as a unit vector.
+\end{enumerate}
+\item \verb|get_direction| should update \verb|direction| with the next tracking direction.
 \end{enumerate}
 \end{enumerate}
