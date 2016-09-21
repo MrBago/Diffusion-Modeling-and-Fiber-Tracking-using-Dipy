@@ -12,7 +12,7 @@
     As the name suggests, it is the responsibility of the direction getter to pick tracking directions based on the tissue information at the current tacking location. At each step of the tracking procedure, there are two pieces of information available to the direction getter. First, the current tracking location is the last point, so far, of the streamline being tracked relative to the 
     
 \begin{enumerate}
-\item A direction getter should inherit from \verb|dipy.tracking.local.DirectionGetter|.\begin{enumerate}
+\item A direction getter should inherit from \verb|dipy.tracking.local.DirectionGetter|.
 \item A direction getter should implement a \verb|get_direction| method.\begin{enumerate}
 \begin{enumerate}
 \item The \verb|get_direction| method takes two arguments, \verb|point| and \verb|direction|.
