@@ -24,6 +24,14 @@
 \item \verb|get_direction| should return \verb|1| if no tracking direction can be established and \verb|0| otherwise.
 \item \verb|get_direction| should update \verb|direction| with the next tracking direction if \verb|0| is returned.
 \end{enumerate}
-\item A direction getter should implement a \verb|get_direction| method.
+\item A direction getter should implement a \verb|initial_direction| method.
 \begin{enumerate}
+\item The \verb|initial_direction| method takes one argument, \verb|point| similar to \verb|get_direction|.
+\item The \verb|initial_direction| method should return an \verb|(N, 3)| array of directions as unit vectors.
+\begin{enumerate}
+\item These directions should be suitable tracking directions for tracking seeds at \verb|point|.
+\item If some directions are more suitable for tracking, the directions should be sorted in order of suitability. The most preferred direction first.  
+\item If no suitable directions can be established, a \verb|(0, 3)| array should be returned.
+\end{enumerate}
+\end{enumerate}
 \end{enumerate}
