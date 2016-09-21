@@ -1,15 +1,12 @@
 \subsection{Local Tracking Class}
-    The local tracking class implements the basic logic of the local fiber tracking algorithm. In the heart of the local tracking class is the main tracking loop. The main tracking loop uses a direction getter, a tissue classifier, and a seed to produce streamlines. The algorithm of the loop is described here in psudo-code:
+    The local tracking class implements the basic logic of the local fiber tracking algorithm. In the heart of the local tracking class is the main tracking loop. The main tracking loop uses a direction getter, a tissue classifier, and a seed to produce half a streamline. The algorithm of the loop is described here in psudo-code:
 \begin{lstlisting}[language=python]
-for direction in direction_getter.initial_directions(seed):
-    point = seed
-    streamline = [point]
-    while tissue_class == TRACKPOINT:
-        direction = direction_getter.get_direction(point, direction)
-        point = step(point, direction)
-        tissue_class = tissue_classifier.check_point(point)
-        if tissue_class != OUTSIDEIMAGE:
-            streamline.append(point)
-    if tissue_class != INVALIDPOINT:
-        yield streamline
+while tissue_class == TRACKPOINT:
+    direction = direction_getter.get_direction(point, direction)
+    point = step(point, direction)
+    tissue_class = tissue_classifier.check_point(point)
+    if tissue_class != OUTSIDEIMAGE:
+        streamline.append(point)
+if tissue_class != INVALIDPOINT:
+    yield streamline
 \end{lstlisting}
