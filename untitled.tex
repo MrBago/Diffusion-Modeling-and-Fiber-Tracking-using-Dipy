@@ -13,7 +13,7 @@
     
 \begin{enumerate}
 \item A direction getter should inherit from \verb|dipy.tracking.local.DirectionGetter|.
-\item A direction getter should implement a \verb|get_direction| method.\begin{enumerate}
+\item A direction getter should implement a \verb|get_direction| method.
 \begin{enumerate}
 \item The \verb|get_direction| method takes two arguments, \verb|point| and \verb|direction|.
 \begin{enumerate}
@@ -24,4 +24,6 @@
 \item \verb|get_direction| should return \verb|1| if no tracking direction can be established and \verb|0| otherwise.
 \item \verb|get_direction| should update \verb|direction| with the next tracking direction if \verb|0| is returned.
 \end{enumerate}
+\item A direction getter should implement a \verb|get_direction| method.
+\begin{enumerate}
 \end{enumerate}
