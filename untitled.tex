@@ -5,33 +5,3 @@
 
 # An overview of local tracking algorithms.
 
-\section{Local Tracking Components}
-    By framing the local tracing problem as one of independent but interacting modules, we're able to focus on the behaviour of the independent components. In this section we discuss how the components of the local tracking model are built, the responsibilities of each component and how the components interact.
-
-\subsection{Direction Getter}
-    As the name suggests, it is the responsibility of the direction getter to pick tracking directions based on the tissue information at the current tacking location. At each step of the tracking procedure, there are two pieces of information available to the direction getter. First, the current tracking location is the last point, so far, of the streamline being tracked relative to the 
-    
-\begin{enumerate}
-\item A direction getter should inherit from \verb|dipy.tracking.local.DirectionGetter|.
-\item A direction getter should implement a \verb|get_direction| method.
-\begin{enumerate}
-\item The \verb|get_direction| method takes two arguments, \verb|point| and \verb|direction|.
-\begin{enumerate}
-\item Both arguments are of type \verb|memoryview| and have shape \verb|(3,)|.
-\item \verb|point| is the current streamline possition in voxel coordinates, and guaranteed to be inside the image.
-\item \verb|direction| is the direction of the previous tracking step, given as a unit vector.
-\end{enumerate}
-\item \verb|get_direction| should return \verb|1| if no tracking direction can be established and \verb|0| otherwise.
-\item \verb|get_direction| should update \verb|direction| with the next tracking direction if \verb|0| is returned.
-\end{enumerate}
-\item A direction getter should implement an \verb|initial_direction| method.
-\begin{enumerate}
-\item The \verb|initial_direction| method takes one argument, \verb|point| similar to \verb|get_direction|.
-\item The \verb|initial_direction| method should return an \verb|(N, 3)| array of directions as unit vectors.
-\begin{enumerate}
-\item These directions should be suitable tracking directions for tracking seeds at \verb|point|.
-\item If some directions are more suitable for tracking, the directions should be sorted in order of suitability. The most preferred direction first.  
-\item If no suitable directions can be established, a \verb|(0, 3)| array should be returned.
-\end{enumerate}
-\end{enumerate}
-\end{enumerate}
