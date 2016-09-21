@@ -7,7 +7,6 @@
     Dipy provides several standard direction getters. The function \verb|dipy.direction.peaks_from_model| returns a deterministic direction getter which estimates tracking directions from ODF or FOD peaks. Both q-ball type, which typically estimate ODFs, and spherical deconvolution type, which typically estimate FODs, can be used with this direction getter. Dipy also provides a probableistic direction getter, \verb|dipy.probabilistic_direction_getter.ProbabilisticDirectionGetter|. This direction getter returns directions stochastically by choosing from a discrete set of predefined directions based on a set of weights. The \verb|ProbabilisticDirectionGetter| is usually constructed using the FODs as those weights. While in principle any function defined on the surface of the sphere can be used to weight the selection probabilities of the tracking directions, ODF functions tend to be too smooth and produce poor tracking results. For that reason, the FODs of spherical deconvolution type models, or similar functions, are typically used with the \verb|ProbabilisticDirectionGetter|.
 
 Dipy also allows users to define their own direction getter class, either in python or in cython. Here are the requirements for implementing a direction getter.
-
 \begin{enumerate}
 \item A direction getter should inherit from \verb|dipy.tracking.local.DirectionGetter|.
 \item A direction getter should implement a \verb|get_direction| method.
