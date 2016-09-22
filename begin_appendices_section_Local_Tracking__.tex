@@ -1,0 +1,31 @@
+\begin{appendices}
+
+\section{Local Tracking Algorithm}
+\label{appendix:algo}
+
+\begin{lstlisting}[language=python]
+# Main tracking loop.
+point = seed
+streamline = [point]
+while tissue_class == TRACKPOINT:
+    direction = direction_getter.get_direction(point, direction)
+    point = step(point, direction)
+    tissue_class = tissue_classifier.check_point(point)
+    if tissue_class != OUTSIDEIMAGE:
+        streamline.append(point)
+if tissue_class != INVALIDPOINT:
+    yield streamline
+\end{lstlisting}
+
+\begin{lstlisting}[language=python]
+# Tracking algorithm applied to each seed.
+for seed_direction in direction_getter.get_directions(seed):
+    first_half = track seed along seed_direction
+    second_half = track seed along -seed_direction
+    if first_half and second_half do not end with INVALIDPOINT:
+        yield first_half + reverse(second_half)
+\end{lstlisting}
+
+\section{Another Appendix}
+
+\end{appendices}
