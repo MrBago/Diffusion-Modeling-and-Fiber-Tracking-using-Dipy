@@ -6,8 +6,6 @@ This example is also availabe as an ipython notebook so that users can download 
 ****
 
 ``` python
-
-
 from dipy.data import read_stanford_hardi
 img, gtab = read_stanford_hardi()
 data = img.get_affine()
