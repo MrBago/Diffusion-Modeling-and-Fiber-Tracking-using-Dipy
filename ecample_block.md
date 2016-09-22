@@ -26,19 +26,6 @@ print mask.sum()
 
 ```
 
-
-```python
-
-```
-
-
-```python
-
-```
-
-
-
-
 ```python
 """
 from dipy.reconst.dti import TensorModel
