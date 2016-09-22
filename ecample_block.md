@@ -75,9 +75,6 @@ streamlines = list(streamlines)
 print(len(streamlines))
 ```
 
-    409
-
-
 
 ```python
 sk = seeds_from_mask(mask)[-4:].copy()
