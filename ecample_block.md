@@ -16,14 +16,11 @@ affine = img.get_affine()
 
 
 ```python
-
-
 import numpy as np
 img.shape, img.affine
 mask = np.zeros(img.shape[:-1], bool)
 mask[:] = np.random.random(mask.shape) < .001
 print mask.sum()
-
 ```
 
 ```python
