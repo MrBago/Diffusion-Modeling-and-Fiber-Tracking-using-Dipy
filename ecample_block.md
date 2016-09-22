@@ -5,9 +5,7 @@ This example is also availabe as an ipython notebook so that users can download 
 \cite{Chik}
 ****
 
-``
-
-```python
+``` python
 
 
 from dipy.data import read_stanford_hardi
