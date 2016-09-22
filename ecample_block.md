@@ -94,6 +94,6 @@ from dipy.tracking.local.localtracking import LocalTracking
 seeds = seeds_from_mask(mask, affine=affine)[-4:]
 from dipy.tracking.local import LocalTracking
 streamlines = LocalTracking(csa_peaks, tissue_classifier,
-                            seeds, affine=affine, step_size=.5)
+seeds, affine=affine, step_size=.5)
 
 ```
