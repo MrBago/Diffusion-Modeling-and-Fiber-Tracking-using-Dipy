@@ -7,13 +7,13 @@
 # Main tracking loop.
 point = seed
 streamline = [point]
-while tissue_class == TRACKPOINT:
+while tissue_cls == TRACKPOINT:
     direction = direction_getter.get_direction(point, direction)
     point = step(point, direction)
-    tissue_class = tissue_classifier.check_point(point)
-    if tissue_class != OUTSIDEIMAGE:
+    tissue_cls = tissue_classifier.check_point(point)
+    if tissue_cls != OUTSIDEIMAGE:
         streamline.append(point)
-if tissue_class != INVALIDPOINT:
+if tissue_cls != INVALIDPOINT:
     yield streamline
 \end{lstlisting}
 
