@@ -3,7 +3,6 @@ Here I demonstrate how to use dipy's local tracking. I'll be using
 This example is also availabe as an ipython notebook so that users can download and run the example.
 
 \cite{Chik}
-****
 
 ``` python
 from dipy.data import read_stanford_hardi
