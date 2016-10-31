@@ -4,7 +4,6 @@ The first step in any diffusion MRI analysis, after pre-processing is complete, 
 \subsection{Model and Fit Classes}
 Models in dipy serve two related functions. First a model can be used to fit diffusion MRI signals and estimate model parameters. Second, some dipy models provide a predict method, which allows the model to predict diffusion MRI signals from model parameters. Here is a formal description of model objects in Dipy.
 
-
 A model object can also be used to predict the diffusion MRI signal from a set of model parameters. This section will describe the model API and use the diffuion tensor model as an example. 
 \begin{enumerate}
 \item The model class.
@@ -15,14 +14,21 @@ A model object can also be used to predict the diffusion MRI signal from a set o
 \item The fit method should take two parameters: data and mask. Data is an array of diffusion signals and mask is a binary array where True values identify non-background voxels of the image.
 \end{enumerate}
 \item The model may have a predict method. The predict method should predict diffusion signals from model parameters.
-\end{enumerate}
+\begin{enumerate}
 \item The predict method should take two arguments: model parameters and a gradient table. The gradient table argument should be optional and the gradient table associated with the model should be used, by default.
 \end{enumerate}
 \end{enumerate}
-\item The fit class.
+\end{enumerate}
 \begin{enumerate}
+    \item The fit class.
+    \begin{enumerate}
+        \item Each fit object should have a model attribute which will generally be the model used to create the fit object.
+        \item The fit class may also have a predict method. The predict method of the fit class does not take model parameters as an argument, instead it estimates a signal prediction based on the model parameters associated with the fit object.
+        \item The fit object may have methods specific to themodel type which the fit represents. For example, a DTI fit has the attributes \verb|fa| and \verb|md| which are the fractional anisotropy and mean diffusivity, respectively, of the diffusion tensor.
+        \item The fit object may have an odf method which takes a \verb|Sphere| object as an argument and returns a spherican function sampled on discrete points. The odf method is used for peak finding and fiber tracking.
+    \end{enumerate}
 \end{enumerate}
-\item The fit class 
-\end{enumerate}
-\end{enumerate}
-\end{enumerate}
+
+All the models in dipy follow this main framework. While dipy does not require all models to implement all parts of the model interface, by having a consistent interface we ensure that the remainder of the dipy code can interact with these objects in a consistent fassion.
+
+\subsection{Multi-Voxel Fit}
