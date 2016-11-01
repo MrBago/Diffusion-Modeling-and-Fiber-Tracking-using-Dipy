@@ -31,4 +31,7 @@ A model object can also be used to predict the diffusion MRI signal from a set o
 
 All the models in dipy follow this main framework. While dipy does not require all models to implement all parts of the model interface, by having a consistent interface we ensure that the remainder of the dipy code can interact with these objects in a consistent fassion.
 
-\subsection{Multi-Voxel Fit}
+\subsection{Dipy Untilties for Models}
+Dipy provides some tools for making the implementation of new models easier. The first of these tools is the \verb|GradientTable| class. A gradient table object can be initialized from gradient table files, for example \verb|bvec| and \verb|bval| files comonly used in diffusion imaging, or simply an array of gradients by using the \verb|gradient_table| factory function in \verb|dipy.core.gradients|. A gradient table object allows a user to easily access different representations of gradient information. For example, the \verb|bvals| attribute of the gradient table object exposes the diffusion weighting, commonly known as the b-value, of each gradient. Similarly, the \verb|bvecs| attribute exposes the direction of each gradient as a unit vector and the \verb|gradients| attribute exposes the total gradient vector.
+
+Dipy uses the \verb|Sphere| and \verb|HemiSphere| classes as discrete representations of the unit sphere. The \verb|HemiShere| class is a subclass of the sphere class, provides the same interface, and can be used anywhere Dipy requires a \Sphere|verb| object. Both \verb|Sphere| and \verb|HemiSphere| objects consist primarily of a set of dispersed points on the unit sphere. 
