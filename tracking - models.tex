@@ -10,7 +10,7 @@ A model object can also be used to predict the diffusion MRI signal from a set o
 \begin{enumerate}
 \item The model class.
 \begin{enumerate}
-\item Models classes are initialized with any required parameters to create model objects. In this context, a gradient talbe is considered a parameter and should be passed to the model in the constructor.
+\item Models classes are initialized with any required parameters to create model objects. In this context, a gradient table is considered a parameter and should be passed to the model in the constructor.
 \item Models should have a fit method. The fit method should return a fit object.
 \begin{enumerate}
 \item The fit method should take two parameters: data and mask. Data is an array of diffusion signals and mask is a binary array where True values identify non-background voxels of the image.
