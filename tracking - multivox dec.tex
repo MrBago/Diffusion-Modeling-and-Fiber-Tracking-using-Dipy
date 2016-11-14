@@ -1,1 +1,41 @@
 \subsection{Multi Voxel Fit Decorator and Class}
+
+When fitting a dipy diffusion model, a single voxel or an entire data set can be passed to the model's fit method. While this design choice makes it easier for users to create and fit models to their data, it requires that all model and fit classes are able to accept and work with 4d data sets. Some models might choose to explicitly handle the 4d data sets, however in some cases it's nice to be able to abstract out the looping logic and implement the model with respect to only one voxel. Dipy provides a decorator, a python object used to modify function or method definitions, which allows users and developers to easily implement a model without explicitly considering the 4d nature of the data. This decorator, \verb|dipy.reconst.multi_voxel.multi_voxel_fit|, can be applied to the fit method of a model class. The decorator guarantees that the fit method of the model is called for each data voxel when a multi-voxle data set is passed to the fit method. The implementation of the fit method should return a fit class, like all other models. Here is an example of a model and fit class pair that use the multi-voxel decorator. Notice that other than the decorator, both classes can ignore the multidimensional nature of the data.
+
+\begin{lstlisting}[language=python]
+from dipy.reconst.multi_voxel import multi_voxel_fit, MultiVoxelFit
+
+class SampleModel(object):
+    def __init__(self, gradient_table):
+        self.gtab = gradient_table
+
+    @multi_voxel_fit
+    def fit(self, data):
+        return SampleFit(self, [data.mean(), data.var()])
+
+class SampleFit(object):
+    def __init__(self, model, fit_parameters):
+        self.model = model
+        self.mean = fit_parameters[0]
+        self.var = fit_parameters[1]
+\end{lstlisting}
+
+A fit method with is decorated with the multi-voxel fit decorator can return either an instance of the appropriate fit class if in the data input is a one dimensional array of diffusion signals or an instance of the \varb|MultVoxelFit| class if the input is a multidimensional data set. The \verb|MultVoxelFit| class is an abstraction which allows the attributes and methods of the single voxel fit class to be applied to man fit instances at once. For example, the sample fit class in the previous example has \verb|mean| and \verb|var| attributes that are scalars in the single voxel case. In the multidimensional case, the fit method returns a \verb|MultVoxelFit|. The \verb|mean| and \var|var| attributes now return multidimensional arrays which represent the mean and variance computation for each voxel of the multidimensional data set that was passed to the fit method.
+
+\begin{lstlisting}[language=python]
+import numpy as np
+
+gradient_table = object()
+model = SampleModel(gradient_table)
+sample_data = np.random.random((10, 10, 10, 64))
+
+fit = model.fit(sample_data[0, 0, 0, :])
+assert np.isscalar(fit.mean) and np.isscalar(fit.var)
+
+fit = model.fit(sample_data)
+assert type(fit) is MultiVoxelFit
+assert fit.mean.shape == (10, 10, 10)
+assert fit.var.shape == (10, 10, 10)
+\end{lstlisting}
+
+This decorator is used in the implementation of several dipy models and allows users to quickly and easily implement their own diffusion models.
