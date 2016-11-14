@@ -8,4 +8,4 @@ section_Dipy_Untilties_for_Models__.tex
 figures/half_sphere/half_sphere.png
 figures/full_sphere/full_sphere.png
 tracking - multivox dec.tex
-begin_appendices_section_Appendix_subsection__.tex
+section_Appendix_begin_appendices_subsection__.tex
