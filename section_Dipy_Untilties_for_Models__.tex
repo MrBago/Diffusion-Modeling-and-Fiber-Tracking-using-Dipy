@@ -1,4 +1,5 @@
-\section{Dipy Untilties for Models}
+\section{Dipy Utilities for Models}
+
 \subsection{Gradient Table}
 Dipy provides some tools for making the implementation of new models easier. The first of these tools is the \verb|GradientTable| class. A gradient table object can be initialized from gradient table files, for example \verb|bvec| and \verb|bval| files comonly used in diffusion imaging, or simply an array of gradients by using the \verb|gradient_table| factory function in \verb|dipy.core.gradients|. A gradient table object allows a user to easily access different representations of gradient information. For example, the \verb|bvals| attribute of the gradient table object exposes the diffusion weighting, commonly known as the b-value, of each gradient. Similarly, the \verb|bvecs| attribute exposes the direction of each gradient as a unit vector and the \verb|gradients| attribute exposes the total gradient vector.
 
