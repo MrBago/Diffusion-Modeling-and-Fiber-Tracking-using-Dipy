@@ -1,8 +1,39 @@
 \section{Streamline Utilities}
 
-Tractography can be used to identify connections between brain regions, estimate the path of specific conections or measure white matter tissue properites in a single subject brain. To fassiclitate these applications dipy provides several utlitlites what transform streamline data. This secontion describes some of these utilities in more detail.
+Tractography can be used to identify connections between brain regions, estimate the path of specific connection or measure white matter tissue properties in a single subject brain. To facilitate these applications Dipy provides several utilities what transform streamline data. This section describes some of these utilities in more detail.
 
 \subsection{Connectivity Matrix}
-A connectivity matrix represents the streamlines that begin and end in two given tissue regions of the brain. To create a connectivity matrix one needs to start with a parcilation of the brain tissues. In this parcilation each tissue region is represented by a unique, non-negative integer value. The zero value is usually reserved for background and non-brain tissues. This tissue parcilation casdf 
+A connectivity matrix represents the streamlines that begin and end in two given tissue regions of the brain. To create a connectivity matrix one needs to start with a parcellation of the brain tissues. In this parcellation each tissue region is represented by a unique, non-negative integer value. The zero value is usually reserved for background and non-brain tissues. This tissue parcellation can then be combined with the result of the local tracking output to produce a connectivity matrix. This example shows a typical use of the \verb|connectivity_matrix| function. Here we return both the matrix, the number of streamlines that connect two regions, and the mapping. The mapping is a dictionary of the streamlines that connect every pair of regions. Each streamline is represented in the matrix and the mapping exactly once, and for every tissue region \verb|i| and \verb|j|, \verb|matrix[i, j] == len(mapping[i, j])|.
+
+\begin{lstlisting}[language=python]
+from dipy.tracking.utils import connectivity_matrix
+
+matrix, mapping = connectivity_matrix(streamlines, parcellation, affine=affine,
+                                      symmetric=True, return_mapping=True,
+                                      mapping_as_stremalines=True)
+\end{lstlisting}
+
+\subection{Targeting}
+Targeting is the filtering of streamlines based on whether or not they intersect with a specific ROI. Multiple ROI targets can be combined by sequential application of the target function. This example demonstrates how one could select only streamlines that intersect with both of two given ROIs, ROI1 and ROI2.
+
+\begin{lstlisting}[language=python]
+from dipy.tracking.utils import target
+
+# select streamlines that intersect with both ROI1 and ROI2
+intermediate_result = target(streamlines, ROI1, affine=affine)
+filtered_streamlines = target(intermediate_result, ROI2, affine=affine)
+
+\end{lstlisting}
+
+To exclude streamlines based on a ROI, the \verb|include| keyword should be set to False. This example shows how one can one can select streamlines that intersect with ROI1 but do not intersect with ROI2.
+
+\begin{lstlisting}[language=python]
+from dipy.tracking.utils import target
+
+# select streamlines that intersect with both ROI1 but do not intersect with ROI2
+intermediate_result = target(streamlines, ROI1, affine=affine)
+filtered_streamlines = target(intermediate_result, ROI2, affine=affine, include=False)
+
+\end{lstlisting}
 
 First, given gray matter label data and a tractogram, or densly seeded tracography reslut, one can estimate a connectivity matrix between gray matter tissue regions. Second, given mutiple regions of interest (ROI), one can filter, or target, streamlines based on wheather or not they intersect with specific ROIS. Third, a tractogram can be used to create a density map, sometimes called a track denisty image or TDI. 
