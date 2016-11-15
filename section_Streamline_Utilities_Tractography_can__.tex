@@ -13,7 +13,7 @@ matrix, mapping = connectivity_matrix(streamlines, parcellation, affine=affine,
                                       mapping_as_stremalines=True)
 \end{lstlisting}
 
-\subection{Targeting}
+\subsection{Targeting}
 Targeting is the filtering of streamlines based on whether or not they intersect with a specific ROI. Multiple ROI targets can be combined by sequential application of the target function. This example demonstrates how one could select only streamlines that intersect with both of two given ROIs, ROI1 and ROI2.
 
 \begin{lstlisting}[language=python]
@@ -36,4 +36,32 @@ filtered_streamlines = target(intermediate_result, ROI2, affine=affine, include=
 
 \end{lstlisting}
 
-First, given gray matter label data and a tractogram, or densly seeded tracography reslut, one can estimate a connectivity matrix between gray matter tissue regions. Second, given mutiple regions of interest (ROI), one can filter, or target, streamlines based on wheather or not they intersect with specific ROIS. Third, a tractogram can be used to create a density map, sometimes called a track denisty image or TDI. 
+More complex targeting and filtering procedures can be implemented by applying logical operators to the ROIs as well as chaining together multiple targets.
+
+\subsection{Moving Streamlines}
+
+Streamlines represent paths through three dimensional space. Being able to describe these paths in different coordinate spaces is often useful. For example if a subject returns for a followup study, one may want to co-register the streamlines from the first session with the MRI data of the second session. In order to move streamlines between two coordinate spaces, one need to know the affine transformation between each of the coordinate spaces and a common reference space. Sometimes, one of the two coordinate spaces is the same as the reference space, in that case of of the two affine transformations is simply the identity stransform. Dipy provides a utility function that will transfrom streamlines between two coordinate spaces given a common reference space.
+
+\begin{lstlisting}[language=python]
+from dipy.tracking.utils import move_streamlines
+
+output_streamlines = move_streamlines(streamlines, output_space=output_affine, input_space=input_affine)
+\end{lstlisting}
+
+\subsection{Density Maps}
+
+A tractogram can be used to create a density map, sometimes called a track density image or TDI\cite{Calamante_2010, Calamante_2016}. Because the streamlines of a tractogram are defined in a 3d continuous space, density maps can be created at arbitrary resolution. When the resolution of the track density image is higher than the resolution of the diffusion MRI data used to create it, the density image is called a super resolution TDI \cite{Calamante_2016}. If the voxel size of TDI is smaller than the step size of the streamlines in the tractogram, subsegmenting the streamlines will produce a better quality TDI. In this example we combine the \verb|subsegment| and \verb|density_map| funtions to create a super resolution TDI.
+
+\begin{lstlisting}[language=python]
+
+from dipy.tracking.utils import subsegment, density_map
+
+data_matrix = [128, 128, 64]
+tdi_matrix = [1024, 1024, 512]
+tdi_resolution = .125 # approximate resolution in mm
+
+super_res_streamlines = subsegment(streamlines, tdi_resolution)
+super_res_tdi = density_map(super_res_streamlines, tdi_matrix,
+                            affine=super_res_affine)
+
+\end{lstlisting}
