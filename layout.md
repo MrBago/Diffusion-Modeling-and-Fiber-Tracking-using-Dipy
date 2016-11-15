@@ -8,4 +8,4 @@ figures/half_sphere/half_sphere.png
 figures/full_sphere/full_sphere.png
 tracking - multivox dec.tex
 section_Streamline_Utilities_Tractography_can__.tex
-section_Appendix_begin_appendices_subsection__.tex
+section_Appendix_subsection_Local_Tracking__.tex
