@@ -1,0 +1,8 @@
+\section{Streamline Utilities}
+
+Tractography can be used to identify connections between brain regions, estimate the path of specific conections or measure white matter tissue properites in a single subject brain. To fassiclitate these applications dipy provides several utlitlites what transform streamline data. This secontion describes some of these utilities in more detail.
+
+\subsection{Connectivity Matrix}
+A connectivity matrix represents the streamlines that begin and end in two given tissue regions of the brain. To create a connectivity matrix one needs to start with a parcilation of the brain tissues. In this parcilation each tissue region is represented by a unique, non-negative integer value. The zero value is usually reserved for background and non-brain tissues. This tissue parcilation casdf 
+
+First, given gray matter label data and a tractogram, or densly seeded tracography reslut, one can estimate a connectivity matrix between gray matter tissue regions. Second, given mutiple regions of interest (ROI), one can filter, or target, streamlines based on wheather or not they intersect with specific ROIS. Third, a tractogram can be used to create a density map, sometimes called a track denisty image or TDI. 
