@@ -1,9 +1,7 @@
 \section{Appendix}
-\begin{appendices}
+
 \subsection{Local Tracking Algorithm}
 \label{appendix:algo}
-
-
 
 \begin{lstlisting}[language=python]
 # Main tracking loop.
@@ -27,5 +25,3 @@ for seed_direction in direction_getter.get_directions(seed):
     if first_half and second_half do not end with INVALIDPOINT:
         yield first_half + reverse(second_half)
 \end{lstlisting}
-
-\end{appendices}
