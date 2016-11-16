@@ -1,4 +1,8 @@
-\section{Local Tracking Components}
+\section{Local Tracking}
+    Fiber tracking attempts to reconstruct white matter pathways from directional information gleaned about white matter tissues using diffusion MRI. This process is similar to constructing flow paths from a vector field, but with several important differences. First, brain networks are complex and white matter pathways have many crossing. These crossings mean that, unlike a vector field, the tracking algorithm cannot count on a unique, well defined, tracking direction at each point in space. Additionally, white matter pathways represent bundles of axons with a distinct beginning and end. Accurately identifying the endpoints of pathways can greatly improve the quality of fiber tracking results\cite{Smith_2012}. 
+
+
+In this section I'll describe the basics of dipy's local tracking, it's components and show an example of how to use dipy's local tracking. I will not go into too much detail about what the components do or how they work as that is covered in the next section. Figure \ref{fig:locTracFlow} shows the five basic things we need to start fiber tracking. The first two items, data and seeds are provided by the user. Data is the diffusion MRI data set along with the associated gradient table. In our example we'll use the stanford hardi data set, a free and public data set dipy can download for you. We'll also need 
     By framing the local tracing problem as one of independent but interacting modules, we're able to focus on the behaviour of the independent components. In this section we discuss how the components of the local tracking model are built, the responsibilities of each component and how the components interact.
 
 \subsection{Direction Getter}
