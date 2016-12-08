@@ -7,4 +7,4 @@ figures/Slide5/Slide5.png
 tacking-lt-direction getter.tex
 tracking - multivox dec.tex
 section_Streamline_Utilities_Tractography_can__.tex
-section_Appendix_subsection_Local_Tracking__.tex
+None__.tex
