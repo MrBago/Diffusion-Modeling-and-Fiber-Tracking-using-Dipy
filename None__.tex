@@ -3,7 +3,7 @@
 \subsection{Local Tracking Algorithm}
 \label{appendix:algo}
 
-\begin{lstlisting}[language=python]
+\begin{verbatim}
 # Main tracking loop.
 point = seed
 streamline = [point]
@@ -15,13 +15,13 @@ while tissue_cls == TRACKPOINT:
         streamline.append(point)
 if tissue_cls != INVALIDPOINT:
     yield streamline
-\end{lstlisting}
+\end{verbatim}
 
-\begin{lstlisting}[language=python]
+\begin{verbatim}
 # Tracking algorithm applied to each seed.
 for seed_direction in direction_getter.get_directions(seed):
     first_half = track seed along seed_direction
     second_half = track seed along -seed_direction
     if first_half and second_half do not end with INVALIDPOINT:
         yield first_half + reverse(second_half)
-\end{lstlisting}
+\end{verbatim}
