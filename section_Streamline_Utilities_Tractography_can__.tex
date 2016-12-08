@@ -5,36 +5,36 @@ Tractography can be used to identify connections between brain regions, estimate
 \subsection{Connectivity Matrix}
 A connectivity matrix represents the streamlines that begin and end in two given tissue regions of the brain. To create a connectivity matrix one needs to start with a parcellation of the brain tissues. In this parcellation each tissue region is represented by a unique, non-negative integer value. The zero value is usually reserved for background and non-brain tissues. This tissue parcellation can then be combined with the result of the local tracking output to produce a connectivity matrix. This example shows a typical use of the \verb|connectivity_matrix| function. Here we return both the matrix, the number of streamlines that connect two regions, and the mapping. The mapping is a dictionary of the streamlines that connect every pair of regions. Each streamline is represented in the matrix and the mapping exactly once, and for every tissue region \verb|i| and \verb|j|, \verb|matrix[i, j] == len(mapping[i, j])|.
 
-\begin{lstlisting}[language=python]
+\begin{verbatim}
 from dipy.tracking.utils import connectivity_matrix
 
 matrix, mapping = connectivity_matrix(streamlines, parcellation, affine=affine,
                                       symmetric=True, return_mapping=True,
                                       mapping_as_stremalines=True)
-\end{lstlisting}
+\end{verbatim}
 
 \subsection{Targeting}
 Targeting is the filtering of streamlines based on whether or not they intersect with a specific ROI. Multiple ROI targets can be combined by sequential application of the target function. This example demonstrates how one could select only streamlines that intersect with both of two given ROIs: ROI1 and ROI2.
 
-\begin{lstlisting}[language=python]
+\begin{verbatim}
 from dipy.tracking.utils import target
 
 # select streamlines that intersect with both ROI1 and ROI2
 intermediate_result = target(streamlines, ROI1, affine=affine)
 filtered_streamlines = target(intermediate_result, ROI2, affine=affine)
 
-\end{lstlisting}
+\end{verbatim}
 
 To exclude streamlines based on a ROI, the \verb|include| keyword should be set to False. This example shows how one can one can select streamlines that intersect with ROI1 but do not intersect with ROI2.
 
-\begin{lstlisting}[language=python]
+\begin{verbatim}
 from dipy.tracking.utils import target
 
 # select streamlines that intersect with both ROI1 but do not intersect with ROI2
 intermediate_result = target(streamlines, ROI1, affine=affine)
 filtered_streamlines = target(intermediate_result, ROI2, affine=affine, include=False)
 
-\end{lstlisting}
+\end{verbatim}
 
 More complex targeting and filtering procedures can be implemented by applying logical operators to the ROIs, as well as chaining together multiple targets.
 
@@ -42,17 +42,18 @@ More complex targeting and filtering procedures can be implemented by applying l
 
 Streamlines represent paths through three dimensional space. Being able to describe these paths in different coordinate spaces is often useful. For example, if a subject returns for a followup study, one may want to co-register the streamlines from the first session with the MRI data of the second session. In order to move streamlines between two coordinate spaces, one needs to know the affine transformation between each of the coordinate spaces and a common reference space. Sometimes, one of the two coordinate spaces is the same as the reference space, in that case one of the two affine transformations is simply the identity transform. Dipy provides a utility function that will transfrom streamlines between two coordinate spaces given a common reference space.
 
-\begin{lstlisting}[language=python]
+\begin{verbatim}
+
 from dipy.tracking.utils import move_streamlines
 
 output_streamlines = move_streamlines(streamlines, output_space=output_affine, input_space=input_affine)
-\end{lstlisting}
+\end{verbatim}
 
 \subsection{Density Maps}
 
 A tractogram can be used to create a density map, sometimes called a track density image or TDI\cite{Calamante_2010, Calamante_2016}. Because the streamlines of a tractogram are defined in a 3d continuous space, density maps can be created at arbitrary resolution. When the resolution of the track density image is higher than the resolution of the diffusion MRI data used to create it, the density image is called a super resolution TDI \cite{Calamante_2016}. If the voxel size of TDI is smaller than the step size of the streamlines in the tractogram, subsegmenting the streamlines will produce a better quality TDI. In this example we combine the \verb|subsegment| and \verb|density_map| funtions to create a super resolution TDI.
 
-\begin{lstlisting}[language=python]
+\begin{verbatim}
 
 from dipy.tracking.utils import subsegment, density_map
 
@@ -64,4 +65,4 @@ super_res_streamlines = subsegment(streamlines, tdi_resolution)
 super_res_tdi = density_map(super_res_streamlines, tdi_matrix,
                             affine=super_res_affine)
 
-\end{lstlisting}
+\end{verbatim}
