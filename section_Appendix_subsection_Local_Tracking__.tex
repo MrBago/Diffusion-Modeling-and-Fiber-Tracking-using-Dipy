@@ -18,10 +18,12 @@ if tissue_cls != INVALIDPOINT:
 \end{lstlisting}
 
 \begin{lstlisting}[language=python]
+\begin{verbatim}
 # Tracking algorithm applied to each seed.
 for seed_direction in direction_getter.get_directions(seed):
     first_half = track seed along seed_direction
     second_half = track seed along -seed_direction
     if first_half and second_half do not end with INVALIDPOINT:
         yield first_half + reverse(second_half)
+\end{verbatim}
 \end{lstlisting}
