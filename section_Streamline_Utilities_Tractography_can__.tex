@@ -40,7 +40,7 @@ More complex targeting and filtering procedures can be implemented by applying l
 
 \subsection{Moving Streamlines}
 
-Streamlines represent paths through three dimensional space. Being able to describe these paths in different coordinate spaces is often useful. For example, if a subject returns for a followup study, one may want to co-register the streamlines from the first session with the MRI data of the second session. In order to move streamlines between two coordinate spaces, one needs to know the affine transformation between each of the coordinate spaces and a common reference space. Sometimes, one of the two coordinate spaces is the same as the reference space, in that case of of the two affine transformations is simply the identity transform. Dipy provides a utility function that will transfrom streamlines between two coordinate spaces given a common reference space.
+Streamlines represent paths through three dimensional space. Being able to describe these paths in different coordinate spaces is often useful. For example, if a subject returns for a followup study, one may want to co-register the streamlines from the first session with the MRI data of the second session. In order to move streamlines between two coordinate spaces, one needs to know the affine transformation between each of the coordinate spaces and a common reference space. Sometimes, one of the two coordinate spaces is the same as the reference space, in that case one of the two affine transformations is simply the identity transform. Dipy provides a utility function that will transfrom streamlines between two coordinate spaces given a common reference space.
 
 \begin{lstlisting}[language=python]
 from dipy.tracking.utils import move_streamlines
