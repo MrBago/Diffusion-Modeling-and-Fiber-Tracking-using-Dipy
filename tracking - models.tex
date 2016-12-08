@@ -25,7 +25,7 @@ Models in dipy serve two related functions. First a model can be used to fit dif
     \begin{enumerate}
         \item Each fit object should have a \verb|model| attribute which will generally be the model object used to create the fit object.
         \item The fit class may also have a \verb|predict| method. The predict method of the fit class does not take model parameters as an argument, instead it estimates a signal prediction based on the model parameters associated with the fit instance.
-        \item The fit object may have an \verb|odf| method which takes a \verb|Sphere| instance as an argument and returns a an the Orientation Distrubtion Function estimated by the model and sampled on the vertices of the \verb|Sphere| instance. The \verb|odf| method is used for peak finding and fiber tracking.
+        \item The fit object may have an \verb|odf| method which takes a \verb|Sphere| instance as an argument and returns an the Orientation Distrubtion Function estimated by the model and sampled on the vertices of the \verb|Sphere| instance. The \verb|odf| method is used for peak finding and fiber tracking.
         \item The fit class may have attributes and methods specific to the model type which the fit represents. For example, a DTI fit has the attributes \verb|fa| and \verb|md| which are the fractional anisotropy and mean diffusivity, respectively, of the diffusion tensor.
     \end{enumerate}
 \end{enumerate}
